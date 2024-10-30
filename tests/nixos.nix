@@ -27,6 +27,7 @@ nixosTest {
       services.flatpak = {
         enable = true;
         enableModule = false;
+        waitForInternet = false;
       };
 
       xdg.portal = {
@@ -44,7 +45,8 @@ nixosTest {
       
       services.flatpak = {
         enable = true;
-        flatpak-dir = "/target";
+        flatpakDir = "/target";
+        waitForInternet = false;
       };
 
       xdg.portal = {
@@ -62,7 +64,7 @@ nixosTest {
 
       services.flatpak = {
         enable = true;
-        flatpak-dir = "/target";
+        flatpakDir = "/target";
         remotes = {
           "test" = ../vm/gol.launcher.moe.flatpakrepo;
         };
@@ -70,6 +72,7 @@ nixosTest {
           ":${../vm/xwaylandvideobridge.flatpak}"
         ];
         debug = true;
+        waitForInternet = false;
       };
 
       xdg.portal = {
@@ -87,7 +90,7 @@ nixosTest {
 
       services.flatpak = {
         enable = true;
-        flatpak-dir = "/target";
+        flatpakDir = "/target";
         UNCHECKEDpostEverythingCommand = ''
           touch /target/repo/thisfileshouldpersist
           touch /target/thisfileshouldnotpersist
@@ -96,6 +99,7 @@ nixosTest {
           ":${../vm/xwaylandvideobridge.flatpak}"
         ];
         debug = true;
+        waitForInternet = false;
       };
 
       xdg.portal = {
