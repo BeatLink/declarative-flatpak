@@ -1,5 +1,8 @@
 { writeShellScriptBin }:
 
 writeShellScriptBin "run-tests" ''
-  nix flake check ./tests --print-build-logs
+  pushd tests &>/dev/null
+  nix flake update flatpak
+  nix flake check --print-build-logs
+  popd &>/dev/null
 ''
