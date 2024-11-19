@@ -20,9 +20,9 @@
       modules = [
         { nixpkgs.config.allowUnfree = true; }
 
+        flatpak.nixosModules.declarative-flatpak
         home-manager.nixosModules.home-manager
         nixos-shell.nixosModules.nixos-shell
-        flatpak.nixosModules.default
 
         ./vm.nix
         ./hm.nix

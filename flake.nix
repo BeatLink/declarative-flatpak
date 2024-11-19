@@ -3,24 +3,23 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    utils.url = "github:numtide/flake-utils";
+    systems.url = "github:nix-systems/default-linux";
   };
 
-  outputs = { self, nixpkgs, utils }@inputs: utils.lib.eachDefaultSystem (system: let 
-    pkgs = import nixpkgs {
-      inherit system;
-    };
-    inherit (pkgs) callPackage;
+  outputs = { self, nixpkgs, systems }@inputs: let
+    inherit (nixpkgs.lib) genAttrs warn;
+    genSystems = f: genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
   in {
-    devShells.default = callPackage ./shell.nix { inherit inputs; };
-  }) // {
+    devShells = genSystems (pkgs: {
+      default = pkgs.callPackage ./shell.nix { inherit inputs; };
+    });
     nixosModules = rec {
       declarative-flatpak.imports = [ ./src/modules/nixos.nix ];
-      default = declarative-flatpak;
+      default = warn "\"default\" flake output should no longer be used, please use the \"declarative-flatpak\" output" declarative-flatpak;
     };
     homeManagerModules = rec {
       declarative-flatpak.imports = [ ./src/modules/home-manager.nix ];
-      default = declarative-flatpak;
+      default = warn "\"default\" flake output should no longer be used, please use the \"declarative-flatpak\" output" declarative-flatpak;
     };
   };
 }

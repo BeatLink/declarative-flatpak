@@ -4,7 +4,7 @@
   
   home-manager.users."user" = { config, ... }: {
     imports = [
-      flatpak.homeManagerModules.default
+      flatpak.homeManagerModules.declarative-flatpak
     ];
 
     services.flatpak = {
