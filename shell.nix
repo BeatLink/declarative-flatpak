@@ -1,4 +1,6 @@
-{ mkShell, nixos-shell, ncurses, ostree, gawk, jq, callPackage, inputs }:
+{ inputs
+, mkShell, callPackage, nixos-shell
+, ncurses, ostree, gawk, jq, nil }:
 
 mkShell {
   packages = [
@@ -6,6 +8,7 @@ mkShell {
     ncurses
     ostree
     gawk
+    nil
     jq
 
     (callPackage ./scripts/run-shell.nix { inherit inputs; })
